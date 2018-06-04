@@ -1,0 +1,34 @@
+<div data-bind="css: classes()">
+  <div data-bind="css: classes('header')">
+    <heading-title params="icon: 'shopping-cart', title: 'Concept sets'"></heading-title>
+  </div>
+  <div data-bind="ifnot: canReadConceptsets">
+    <div class="padded">
+      <access-denied params="isAuthenticated: isAuthenticated"></access-denied>
+    </div>
+  </div>
+  <div data-bind="if: canReadConceptsets">
+    <div class="paddedWrapper">
+      <div data-bind="if: mode() == 'add'">
+        <cohort-concept-set-browser
+          params="
+            criteriaContext: model.criteriaContext,
+            onRespositoryConceptSetSelected: onRespositoryConceptSetSelected,
+            onActionComplete: onConceptSetBrowserAction,
+            disableConceptSetButton: model.currentConceptSet() != undefined || !canCreateConceptSet()
+          "></cohort-concept-set-browser>
+      </div>
+      <div data-bind="if: mode() == 'export'">
+        <heading-title params="title: 'Concept Set Export'"></heading-title>
+        <b>Instructions:</b>
+        <p>
+          Select the concept sets for export by selecting each row in the grid. When done, use the 'Export Concept Sets' button which will start the download in a new window.
+        </p>
+        <cohort-concept-set-browser params="criteriaContext: model.criteriaContext, onRespositoryConceptSetSelected: exportOnConceptSetSelected, onActionComplete: onExportAction, buttonActionText: 'Export Concept Sets', repositoryConceptSetTableId: 'exportConceptSetTable'"></cohort-concept-set-browser>            
+        <hr/>
+        <b><span data-bind="text: exportRowCount()"></span></b> concept sets selected for export.
+      </div>
+      <div class="btn btn-sm btn-primary" style="width: 175px" data-bind="click: toggle, text: toggleText"></div>
+    </div>
+  </div>
+</div>
