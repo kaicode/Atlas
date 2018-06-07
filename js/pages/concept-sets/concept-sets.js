@@ -3,20 +3,30 @@ define([
 	'text!./concept-sets.html',
 	'appConfig',
   'providers/Component',
-  'webapi/AuthAPI',
+	'webapi/AuthAPI',
   'pages/concept-sets/const',
-	// 'services/file',
+	'services/file',
+	'components/heading',
+	'components/circe/cohort-concept-set-browser',
 	'less!./concept-sets.less',
 ], function (
   ko,
   view,
   config,
   Component,
-  authAPI,
+  authApi,
   helpers,
-  // fileService
+	fileService,
 ) {
 	class ConceptSets extends Component {
+		static get name() {
+			return 'concept-sets';
+		}
+
+		static get view() {
+			return view;
+		}
+
 		constructor(params) {
       super(params);
       this.model = params.model;
@@ -24,7 +34,8 @@ define([
       this.toggleText = ko.observable("Export Mode");
       this.exportTable = null;
       this.exportRowCount = ko.observable(0);
-      this.exportConceptSets = [];
+			this.exportConceptSets = [];
+			this.isInProgress = ko.observable(false);
 
       this.isAuthenticated = authApi.isAuthenticated;
       this.canReadConceptsets = ko.pureComputed(() => {
@@ -62,9 +73,10 @@ define([
 					return obj.id
 				}).join('%2B'); // + encoded
 				if (conceptSetIds.length > 0) {
-					// fileService
-					// 	.loadZip(helpers.apiPaths.export(conceptSetIds), 'exportedConceptSets.zip')
-					// 	.finally(() => this.isInProgress(false));
+					this.isInProgress(true);
+					fileService
+						.loadZip(helpers.apiPaths.export(conceptSetIds), 'exportedConceptSets.zip')
+						.finally(() => this.isInProgress(false));
 				}
 			}
     }
@@ -93,6 +105,7 @@ define([
 				window.location.href = helpers.paths.details(0);
 			}
 		}
+
 	}
 
 	return Component.build(ConceptSets);
