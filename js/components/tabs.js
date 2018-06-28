@@ -2,31 +2,21 @@ define([
 	'knockout',
 	'text!./tabs.html',
 	'providers/Component',
-	'components/tab',
+	'utils/CommonUtils',
 	'less!./tabs.less',
 ], function (
 	ko,
 	view,
-	Component
+	Component,
+	commonUtils
 ) {
 	class Tabs extends Component {
-		constructor() {
-			super();
-			this.name = 'tabs';
-			this.view = view;
+		constructor(params) {
+			super(params);
 			this.selectedTab = ko.observable(0);
-			this.tabs = ko.observableArray();
-    }
-
-		render(params) {
-			super.render(params);
-			this.tabs = params.tabs || [];
-			this.context = params.context;
-			
-			return this;
+			this.tabs = ko.observableArray(params.tabs || []);
 		}
-  }
+	}
 
-	const tabs = new Tabs();
-	return tabs.build();
+	return commonUtils.build('tabs', Tabs, view);
 });

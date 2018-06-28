@@ -127,7 +127,7 @@ requirejs.config({
 		"cohortcomparison": "modules/cohortcomparison",
 		"r-manager": "components/r-manager",
 		"negative-controls": "components/negative-controls",
-		"atlascharts": "https://unpkg.com/@ohdsi/atlascharts@1.3.1/dist/atlascharts.min",
+		"atlascharts": "https://unpkg.com/@ohdsi/atlascharts@1.4.1/dist/atlascharts.min",
 		"jnj_chart": "jnj.chart", // scatterplot is not ported to separate library
 		"lodash": "lodash.4.15.0.full",
 		"lscache": "lscache.min",
@@ -147,7 +147,6 @@ requirejs.config({
 		"welcome": "components/welcome",
 		"forbidden": "components/ac-forbidden",
 		"unauthenticated": "components/ac-unauthenticated",
-		"access-denied": "components/ac-access-denied",
 		"roles": "components/roles",
 		"role-details": "components/role-details",
 		"loading": "components/loading",
@@ -192,6 +191,7 @@ requirejs.config({
 });
 
 requirejs(['bootstrap'], function () { // bootstrap must come first
+    $.fn.bstooltip = $.fn.tooltip;
 	requirejs([
 		'knockout',
 		'app',
@@ -206,7 +206,6 @@ requirejs(['bootstrap'], function () { // bootstrap must come first
 		'webapi/ExecutionAPI',
 		'databindings',
 		'director',
-		'components/search', // todo: pay attention
 		'localStorageExtender',
 		'jquery.ui.autocomplete.scroll',
 		'loading',
@@ -230,7 +229,7 @@ requirejs(['bootstrap'], function () { // bootstrap must come first
 		window.pageModel = pageModel;
 
 		ko.applyBindings(pageModel, document.getElementsByTagName('html')[0]);
-		httpService.setUnauthorizedHandler(() => authApi.token(null));
+		httpService.setUnauthorizedHandler(() => authApi.resetAuthParams());
 		httpService.setUserTokenGetter(() => authApi.token());
 
 		// establish base priorities for daimons
@@ -281,8 +280,8 @@ requirejs(['bootstrap'], function () { // bootstrap must come first
         sourceApi.initSourcesConfig();
       } else {
         var wasInitialized = false;
-        authApi.token.subscribe(function(token) {
-          if (token && !wasInitialized) {
+        authApi.isAuthenticated.subscribe(function(isAuthed) {
+          if (isAuthed && !wasInitialized) {
             sourceApi.initSourcesConfig();
             wasInitialized = true;
           }

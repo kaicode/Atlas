@@ -1,9 +1,16 @@
 define(
-  (require, exports) => {
-    const pageTitle = 'Search';
+	(require, exports) => {
+		const sharedState = require('atlas-state');
 
-    return {
-      pageTitle,
-    };
-  }
+		const pageTitle = 'Search';
+		const apiPaths = {
+			domains: () => sharedState.vocabularyUrl() + 'domains',
+			vocabularies: () => sharedState.vocabularyUrl() + 'vocabularies',
+		};
+
+		return {
+			pageTitle,
+			apiPaths,
+		};
+	}
 );

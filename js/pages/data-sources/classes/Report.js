@@ -5,11 +5,11 @@ define([
   'providers/Component',
 ], function (
 	ko,
-  helpers,
+  constants,
   httpService,
   Component
 ) {
-  class AbstractReport extends Component {
+  class Report extends Component {
     constructor(params) {
       super(params);
       this.isLoading = ko.observable(true);
@@ -23,7 +23,7 @@ define([
     }
 
     getData() {
-      const url = helpers.apiPaths.report({
+      const url = constants.apiPaths.report({
         sourceKey: this.sourceKey,
         path: this.path,
         conceptId: this.conceptId,
@@ -44,5 +44,5 @@ define([
     }
   }
 
-  return AbstractReport;
+  return Report;
 });

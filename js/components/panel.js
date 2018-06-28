@@ -1,30 +1,23 @@
 define([
 	'knockout',
 	'text!./panel.html',
-  'providers/Component',
+	'providers/Component',
+	'utils/CommonUtils',
 	'less!./panel.less',
 ], function (
 	ko,
 	view,
-	Component
+	Component,
+	commonUtils
 ) {
 	class Panel extends Component {
-		constructor() {
-			super();
-			this.name = 'panel';
-			this.view = view;
-		}
-
-		render(params) {
-      super.render(params);
+		constructor(params) {
+			super(params);
 			this.title = params.title;
 			this.templateId = params.templateId;
-			this.context = params.context;
-			
-			return this;
+			this.context = params.context;			
 		}
-  }
+	}
 
-	const panel = new Panel();
-	return panel.build();
+	return commonUtils.build('panel', Panel, view);
 });

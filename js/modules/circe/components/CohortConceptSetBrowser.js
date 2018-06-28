@@ -1,5 +1,4 @@
-define(['knockout', 'text!./CohortConceptSetBrowserTemplate.html', 'vocabularyprovider', 'appConfig', 'conceptsetbuilder/InputTypes/ConceptSet', 'webapi/AuthAPI', 'webapi/MomentAPI', 'access-denied', 'databindings', 'css!./style.css'], function (ko, template, VocabularyProvider, appConfig, ConceptSet, authApi, momentApi) {
-	console.warn('deprecated, moved to components');
+define(['knockout', 'text!./CohortConceptSetBrowserTemplate.html', 'vocabularyprovider', 'appConfig', 'conceptsetbuilder/InputTypes/ConceptSet', 'webapi/AuthAPI', 'webapi/MomentAPI', 'components/ac-access-denied', 'databindings', 'css!./style.css'], function (ko, template, VocabularyProvider, appConfig, ConceptSet, authApi, momentApi) {
 	function CohortConceptSetBrowser(params) {
 		var self = this;
 
