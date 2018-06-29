@@ -14,11 +14,11 @@ define(
         },
         '/conceptsets': () => {
           appModel.activePage(this.title);
-          require(['conceptset-browser'], function () {
+          require(['./concept-sets'], function () {
             appModel.componentParams = {
               model: appModel
             };
-            appModel.currentView('conceptset-browser');
+            appModel.currentView('concept-sets');
           });
         },
         '/concept/:conceptId:': (conceptId) => {

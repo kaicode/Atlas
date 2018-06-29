@@ -1,0 +1,19 @@
+<script type="text/html" id="concept-sets-browse-tab">
+  <div data-bind="css: classes({ element: 'content', extra: 'flexed' })">
+    <!-- ko if: isInProgress -->
+      <loading></loading>
+    <!-- /ko -->    
+    <!-- ko ifnot: canReadConceptsets -->
+      <access-denied class="flexed" params="isAuthenticated: isAuthenticated"></access-denied>
+    <!-- /ko -->
+    <!-- ko if: canReadConceptsets -->
+      <cohort-concept-set-browser
+        params="
+        criteriaContext: model.criteriaContext,
+        onRespositoryConceptSetSelected: result => onRespositoryConceptSetSelected.call($component, result),
+        onActionComplete: onConceptSetBrowserAction,
+        disableConceptSetButton: model.currentConceptSet() != undefined || !canCreateConceptSet()
+        "></cohort-concept-set-browser>
+      <!-- /ko -->
+  </div>
+</script>

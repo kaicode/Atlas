@@ -1,0 +1,26 @@
+<script type="text/html" id="concept-sets-export-tab">
+  <div data-bind="css: classes({ element: 'content', extra: 'flexed' })">
+    <!-- ko if: isInProgress -->
+      <loading></loading>
+    <!-- /ko -->    
+    <!-- ko ifnot: canReadConceptsets -->
+      <access-denied class="flexed" params="isAuthenticated: isAuthenticated"></access-denied>
+    <!-- /ko -->
+    <!-- ko if: canReadConceptsets -->
+      <b>Instructions:</b>
+      <p>
+        Select the concept sets for export by selecting each row in the grid. When done, use the 'Export Concept Sets' button which will start the download in a new window.
+      </p>
+      <cohort-concept-set-browser
+        params="
+        criteriaContext: model.criteriaContext,
+        onRespositoryConceptSetSelected: result => exportOnConceptSetSelected.call($component, result),
+        onActionComplete: onExportAction,
+        buttonActionText: 'Export Concept Sets',
+        repositoryConceptSetTableId: 'exportConceptSetTable'
+        "></cohort-concept-set-browser>            
+      <hr/>
+      <b><span data-bind="text: exportRowCount()"></span></b> concept sets selected for export.
+    <!-- /ko -->
+  </div>
+</script>

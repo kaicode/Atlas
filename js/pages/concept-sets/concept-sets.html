@@ -1,38 +1,20 @@
-<div data-bind="css: classes()">
-  <heading-title params="icon: 'shopping-cart', title: 'Concept sets', theme: 'dark'"></heading-title>
-  <!-- ko if: isInProgress -->
-    <loading></loading>
-  <!-- /ko -->
-  <div data-bind="ifnot: canReadConceptsets">
-    <access-denied params="isAuthenticated: isAuthenticated"></access-denied>
-  </div>
-  <div data-bind="if: canReadConceptsets, css: classes('content')">
-    <div data-bind="if: mode() == 'add'">
-      <cohort-concept-set-browser
-        params="
-          criteriaContext: model.criteriaContext,
-          onRespositoryConceptSetSelected: result => onRespositoryConceptSetSelected.call($component, result),
-          onActionComplete: onConceptSetBrowserAction,
-          disableConceptSetButton: model.currentConceptSet() != undefined || !canCreateConceptSet()
-        "></cohort-concept-set-browser>
-    </div>
-    <div data-bind="if: mode() == 'export'">
-      <heading-title params="title: 'Concept Set Export'"></heading-title>
-      <b>Instructions:</b>
-      <p>
-        Select the concept sets for export by selecting each row in the grid. When done, use the 'Export Concept Sets' button which will start the download in a new window.
-      </p>
-      <cohort-concept-set-browser
-        params="
-          criteriaContext: model.criteriaContext,
-          onRespositoryConceptSetSelected: result => exportOnConceptSetSelected.call($component, result),
-          onActionComplete: onExportAction,
-          buttonActionText: 'Export Concept Sets',
-          repositoryConceptSetTableId: 'exportConceptSetTable'
-        "></cohort-concept-set-browser>            
-      <hr/>
-      <b><span data-bind="text: exportRowCount()"></span></b> concept sets selected for export.
-    </div>
-    <div class="btn btn-sm btn-primary" style="width: 175px" data-bind="click: toggle, text: toggleText"></div>
+<div data-bind="html: tabs.browse.template"></div>
+<div data-bind="html: tabs.export.template"></div>
+
+<div data-bind="css: classes({ extra: 'flexed' })">
+  <heading-title params="icon: 'shopping-cart', name: 'Concept sets', theme: 'dark'"></heading-title>
+  <div data-bind="css: classes({ element: 'content', extra: 'flexed' })">
+    <tabs params="tabs: [
+    {
+      title: 'Browse',
+      templateId: 'concept-sets-browse-tab',
+      context: tabs.browse.viewModel
+    },
+    {
+      title: 'Export',
+      templateId: 'concept-sets-export-tab',
+      context: tabs.export.viewModel
+    },
+    ]" class="flexed"></tabs>
   </div>
 </div>

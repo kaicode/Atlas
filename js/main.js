@@ -102,7 +102,7 @@ requirejs.config({
 		"director": "director.min",
 		"configuration": "components/configuration",
 		"source-manager": "components/source-manager",
-		"concept-manager": "components/concept-manager",
+		// "concept-manager": "components/concept-manager",
 		"conceptset-browser": "components/conceptset/conceptset-browser",
 		"conceptset-editor": "components/conceptset/conceptset-editor",
 		"conceptset-manager": "components/conceptset/conceptset-manager",

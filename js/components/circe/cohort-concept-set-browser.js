@@ -2,18 +2,20 @@ define([
   'knockout',
   'text!./cohort-concept-set-browser.html',
   'providers/Component',
+  'utils/commonUtils',
   'providers/ConceptSet',
   'vocabularyprovider',
   'appConfig',
   'webapi/AuthAPI',
   'webapi/MomentAPI',
-  'access-denied',
+  'components/ac-access-denied',
   'databindings',
   'less!./cohort-concept-set-browser.less'
 ], function (
   ko,
   view,
   Component,
+  commonUtils,
   ConceptSet,
   VocabularyProvider,
   appConfig,
@@ -21,20 +23,12 @@ define([
   momentApi
 ) {
 	class CohortConceptSetBrowser extends Component {
-    static get name() {
-      return 'cohort-concept-set-browser';
-    }
-
-    static get view() {
-      return view;
-    }
-
     constructor(params) {
       super(params);
       this.criteriaContext = params.criteriaContext;
       this.cohortConceptSets = params.cohortConceptSets;
       this.onActionComplete = params.onActionComplete;
-      this.onRespositoryConceptSetSelected = result => params.onRespositoryConceptSetSelected(result) || defaultRepositoryConceptSetSelected;
+      this.onRespositoryConceptSetSelected = result => params.onRespositoryConceptSetSelected(result) || this.defaultRepositoryConceptSetSelected;
       this.disableConceptSetButton = this.setDisabledConceptSetButton(params.disableConceptSetButton);
       this.buttonActionEnabled = params.buttonActionEnabled !== false;
       this.buttonActionText = params.buttonActionText || "New Concept Set";
@@ -57,6 +51,11 @@ define([
 
       // startup actions
       this.loadConceptSetsFromRepository(this.selectedSource().url);
+
+      this.selectRepositoryConceptSet = this.selectRepositoryConceptSet.bind(this);
+      this.addConceptSet = this.addConceptSet.bind(this);
+      this.defaultRepositoryConceptSetSelected = this.defaultRepositoryConceptSetSelected.bind(this);
+      this.loadConceptSetsFromRepository = this.loadConceptSetsFromRepository.bind(this);
     }
 
     loadConceptSetsFromRepository(url) {
@@ -127,5 +126,5 @@ define([
     }
 	}
 
-	return Component.build(CohortConceptSetBrowser);
+	return commonUtils.build('cohort-concept-set-browser', CohortConceptSetBrowser, view);
 });

@@ -1,10 +1,10 @@
-<div data-bind="css: classes()">
+<div data-bind="css: classes({ extra: 'flexed' })">
   <div data-bind="css: classes('header')">
     <!-- ko foreach: tabs -->
       <span
         data-bind="css: $component.classes({
           element: 'header-title',
-          modifiers: $component.selectedTab() == $index() ? 'selected' : null
+          modifiers: $component.selectedTab() == $index() ? 'selected' : null,
         }),
         text: $data.title,
         click: () => $component.selectedTab($index())"
@@ -15,6 +15,7 @@
     <div data-bind="css: $component.classes({
       element: 'tab',
       modifiers: $component.selectedTab() == $index() ? 'selected' : null,
+      extra: 'flexed',
     })">
       <!-- ko template: { name: $data.templateId, data: context } --><!-- /ko -->
     </div>
