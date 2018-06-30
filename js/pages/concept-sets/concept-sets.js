@@ -6,6 +6,7 @@ define([
 	'./components/export',
   'utils/CommonUtils',
 	'components/heading',
+	'components/circe/cohort-concept-set-browser',
   'components/tabs',
 ], function (
 	ko,

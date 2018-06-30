@@ -14,13 +14,15 @@
       <cohort-concept-set-browser
         params="
         criteriaContext: model.criteriaContext,
-        onRespositoryConceptSetSelected: result => exportOnConceptSetSelected.call($component, result),
+        onRespositoryConceptSetSelected: exportOnConceptSetSelected,
         onActionComplete: onExportAction,
         buttonActionText: 'Export Concept Sets',
         repositoryConceptSetTableId: 'exportConceptSetTable'
         "></cohort-concept-set-browser>            
       <hr/>
-      <b><span data-bind="text: exportRowCount()"></span></b> concept sets selected for export.
+      <p>
+        <b><span data-bind="text: exportRowCount()"></span></b> concept sets selected for export.
+      </p>
     <!-- /ko -->
   </div>
 </script>

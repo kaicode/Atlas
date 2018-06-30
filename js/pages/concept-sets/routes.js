@@ -4,11 +4,13 @@ define(
       return {        
         '/conceptset/:conceptSetId/:mode': (conceptSetId, mode) => {
           appModel.activePage(this.title);
-          require(['conceptset-manager', 'cohort-definition-browser', 'conceptset-list-modal'], function () {
+          // require(['conceptset-manager', 'components/cohort-definitions/cohort-definition-browser', 'conceptset-list-modal'], function () {
+            require(['./components/concept-set'], function(conceptSet) {
             appModel.componentParams = {
               model: appModel
             };
-            appModel.loadConceptSet(conceptSetId, 'conceptset-manager', 'repository', mode);
+            // appModel.loadConceptSet(conceptSetId, 'conceptset-manager', 'repository', mode);
+            appModel.loadConceptSet(conceptSetId, 'concept-set', 'repository', mode);
             appModel.resolveConceptSetExpression();
           });
         },

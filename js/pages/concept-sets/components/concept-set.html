@@ -1,0 +1,11 @@
+<div data-bind="css: classes({ extra: 'flexed' })">
+  <!-- ko if: isLoading -->
+    <loading></loading>
+  <!-- /ko --> 
+  <!-- ko ifnot: canReadConceptsets -->
+    <access-denied class="flexed" params="isAuthenticated: isAuthenticated"></access-denied>
+  <!-- /ko -->  
+  <!-- ko if: canReadConceptsets -->
+    <conceptset-manager params="model: model"></conceptset-manager>
+  <!-- /ko -->
+</div>

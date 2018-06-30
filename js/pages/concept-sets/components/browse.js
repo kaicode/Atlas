@@ -7,7 +7,6 @@ define([
 	'webapi/AuthAPI',
   'pages/concept-sets/const',
 	'components/heading',
-	'components/circe/cohort-concept-set-browser',
 	'less!./browse.less',
 ], function (
   ko,

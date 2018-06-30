@@ -8,7 +8,6 @@ define([
   'pages/concept-sets/const',
 	'services/file',
 	'components/heading',
-	'components/circe/cohort-concept-set-browser',
 	'less!./export.less',
 ], function (
   ko,
@@ -36,7 +35,10 @@ define([
           && this.isAuthenticated()
           && authApi.isPermittedReadConceptsets()
         ) || !config.userAuthenticationEnabled;
-      });
+			});
+			
+			this.exportOnConceptSetSelected = this.exportOnConceptSetSelected.bind(this);
+			this.onExportAction = this.onExportAction.bind(this);
     }
         
     onExportAction(result) {
@@ -50,7 +52,13 @@ define([
 					this.isInProgress(true);
 					fileService
 						.loadZip(constants.apiPaths.export(conceptSetIds), 'exportedConceptSets.zip')
-						.finally(() => this.isInProgress(false));
+						.then(() => {							
+							$("#exportConceptSetTable .selected").removeClass("selected");
+							this.exportRowCount(0);
+						})
+						.finally(() => {
+							this.isInProgress(false);
+						});
 				}
 			}
     }

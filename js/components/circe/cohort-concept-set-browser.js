@@ -28,7 +28,7 @@ define([
       this.criteriaContext = params.criteriaContext;
       this.cohortConceptSets = params.cohortConceptSets;
       this.onActionComplete = params.onActionComplete;
-      this.onRespositoryConceptSetSelected = result => params.onRespositoryConceptSetSelected(result) || this.defaultRepositoryConceptSetSelected;
+      this.onRespositoryConceptSetSelected = params.onRespositoryConceptSetSelected || this.defaultRepositoryConceptSetSelected;
       this.disableConceptSetButton = this.setDisabledConceptSetButton(params.disableConceptSetButton);
       this.buttonActionEnabled = params.buttonActionEnabled !== false;
       this.buttonActionText = params.buttonActionText || "New Concept Set";
